@@ -11,7 +11,8 @@ public class Utilities {
         }
     }
 
-    synchronized static int[][] splitArray(int[] ogArr){
+    synchronized static int[][] splitIntArray(int[] ogArr, int n){
+        // TBD
         return null;
     }
 
