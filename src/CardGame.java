@@ -37,6 +37,19 @@ public class CardGame {
         }
     }
 
+    public void startGame(){
+        Thread[] threads = new Thread[this.nPlayersDecks/2];
+        for (int i = 0; i < threads.length; i++) {
+            threads[i] = new Thread(new Runnable() {
+                public void run() {
+                    // TBD
+                }
+            });
+            threads[i].start();
+        }
+
+    }
+
     public static void main(String[] args) {
         int nPlayers = Utilities.inputInt("Please enter the number of players: ");
 
