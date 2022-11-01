@@ -16,7 +16,13 @@ public class Utilities {
         }
     }
 
-    synchronized static int[][] splitArray(int[] ogArr, int n){
+    synchronized static String inputString(String prompt){
+        Scanner s = new Scanner(System.in);
+        System.out.println(prompt);
+        return s.nextLine();
+    }
+
+    synchronized static int[][] splitIntArray(int[] ogArr, int n){
         int [][] splitedArray = new int[n][];
         int length = ogArr.length / n;
         int x = 0;
@@ -26,6 +32,7 @@ public class Utilities {
         }
         return splitedArray;
     }
+
     synchronized static int[] parseDeckFile(String filePath) {
         try {
             File myObj = new File("four.txt");
@@ -46,12 +53,4 @@ public class Utilities {
             return null;
         }
     }
-
-    synchronized static String inputString(String prompt){
-        Scanner s = new Scanner(System.in);
-        System.out.println(prompt);
-        return s.nextLine();
-    }
-
-
 }

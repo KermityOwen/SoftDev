@@ -10,17 +10,6 @@ public class CardGame {
     // Number of players + numbers of decks (used for circular calculations with modulo later)
     int nPlayersDecks;
 
-    synchronized static int[] parseDeckFile(String filePath){
-        // TBD
-        return null;
-    }
-
-    synchronized static String inputString(String prompt){
-        Scanner s = new Scanner(System.in);
-        System.out.println(prompt);
-        return s.nextLine();
-    }
-
     public CardGame(int nOfPlayers, int[] cvs) throws IncorrectCardsInPackException {
         // Guards
         if (cvs.length != 8*nOfPlayers){
@@ -54,7 +43,7 @@ public class CardGame {
         int nPlayers = Utilities.inputInt("Please enter the number of players: ");
 
         // \/ need to edit after parseDeckFile adn inputString is relocated to the Utility class
-        int[] cardPack = parseDeckFile(inputString("Please enter location of the pack to load: "));
+        int[] cardPack = Utilities.parseDeckFile(Utilities.inputString("Please enter location of the pack to load: "));
 
         try {
             CardGame mainGame = new CardGame(nPlayers, cardPack);
