@@ -9,4 +9,9 @@ public class Card {
     public int getCardValue(){
         return cardValue;
     }
+
+    @Override
+    public String toString() {
+        return Integer.toString(cardValue);
+    }
 }

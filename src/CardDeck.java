@@ -1,5 +1,8 @@
+import java.util.Arrays;
+
 public class CardDeck {
 
+    // I fucked up... Should've used Queues but it's too late everything else is in place and I don't want stuff breaking
     Card[] cards;
     int deckID;
 
@@ -29,12 +32,25 @@ public class CardDeck {
         return deckID;
     }
 
-    public void input (Card c){
-        // TBD
+    public void push (Card c){
+        Card[] auxCards = new Card[cards.length+1];
+        System.arraycopy(cards, 0, auxCards, 1, cards.length);
+        cards = auxCards;
+        this.cards[0] = c;
     }
 
-    public Card output (Card c){
-        // TBD
+    public Card pop (){
+        Card c = cards[cards.length-1];
+        this.cards = Arrays.copyOf(cards, cards.length-1);
         return c;
+    }
+
+    @Override
+    public String toString() {
+        String aux = "";
+        for (Card c: cards){
+            aux = aux + "|" + c;
+        };
+        return aux;
     }
 }
