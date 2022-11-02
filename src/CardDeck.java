@@ -1,8 +1,6 @@
 import java.util.Arrays;
 
 public class CardDeck {
-
-    // I fucked up... Should've used Queues but it's too late everything else is in place and I don't want stuff breaking
     Card[] cards;
     int deckID;
 
@@ -32,6 +30,7 @@ public class CardDeck {
         return deckID;
     }
 
+    // I fucked up... Should've used Queues but it's too late everything else is in place and I don't want stuff breaking
     public void push (Card c){
         Card[] auxCards = new Card[cards.length+1];
         System.arraycopy(cards, 0, auxCards, 1, cards.length);

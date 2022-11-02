@@ -22,6 +22,8 @@ public class Utilities {
         return s.nextLine();
     }
 
+    // Since "ogArr" parameter taken is guarded to be divisible by n (where n is number of players)...
+    // No need to account for cases where number of elements cannot be split evenly
     synchronized static int[][] splitIntArray(int[] ogArr, int n){
         int [][] splitedArray = new int[n][];
         int length = ogArr.length / n;
@@ -35,21 +37,21 @@ public class Utilities {
 
     synchronized static int[] parseDeckFile(String filePath) {
         try {
-            File myObj = new File("four.txt");
-            Scanner myReader = new Scanner(myObj);
+            Scanner scanner = new Scanner(new File("src/Packs/"+filePath));
             List<Integer> al = new ArrayList<Integer>();
-            while (myReader.hasNextLine()) {
-                al.add(Integer.valueOf(myReader.nextLine()));
+
+            while (scanner.hasNextLine()) {
+                al.add(Integer.valueOf(scanner.nextLine()));
             }
-            int[] array = new int[al.size()];
-            for (int i = 0; i < array.length; i++) {
-                array[i] = al.get(i);
+            scanner.close();
+
+            int[] arr = new int[al.size()];
+            for (int i = 0; i < arr.length; i++) {
+                arr[i] = al.get(i);
             }
-            myReader.close();
-            return array;
+            return arr;
         } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
+            System.out.println(e);
             return null;
         }
     }

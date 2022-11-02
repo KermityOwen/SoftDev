@@ -38,8 +38,8 @@ public class Player {
         // TBD
     }
 
-    public Card discard (Card c){
+    public Card discard (int index){
         // TBD
-        return c;
+        return new Card(0); // Placeholder to be replaced
     }
 }

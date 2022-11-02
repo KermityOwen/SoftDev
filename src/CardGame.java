@@ -4,8 +4,8 @@ import java.util.Scanner;
 public class CardGame {
 
     // Maps for players and decks
-    HashMap<Integer, Player> playersMap;
-    HashMap<Integer, CardDeck> deckMap;
+    HashMap<Integer, Player> playersMap = new HashMap<Integer, Player>();
+    HashMap<Integer, CardDeck> deckMap = new HashMap<Integer, CardDeck>();
 
     // Number of players + numbers of decks (used for circular calculations with modulo later)
     int nPlayersDecks;
@@ -41,12 +41,12 @@ public class CardGame {
 
     public static void main(String[] args) {
         int nPlayers = Utilities.inputInt("Please enter the number of players: ");
-
         // \/ need to edit after parseDeckFile adn inputString is relocated to the Utility class
         int[] cardPack = Utilities.parseDeckFile(Utilities.inputString("Please enter location of the pack to load: "));
 
         try {
             CardGame mainGame = new CardGame(nPlayers, cardPack);
+            System.out.println("Valid Pack");
         } catch (IncorrectCardsInPackException e){
             System.out.println(e);
         }
