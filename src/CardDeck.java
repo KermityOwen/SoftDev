@@ -50,6 +50,6 @@ public class CardDeck {
         for (Card c: cards){
             aux = aux + "|" + c;
         };
-        return aux;
+        return aux + "|";
     }
 }

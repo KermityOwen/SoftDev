@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -26,6 +27,13 @@ public class CardGame {
         }
     }
 
+    @Override
+    public String toString() {
+        String deckInfo = "Deck Cards: " + Arrays.toString(deckMap.values().toArray()) + "\nDeck Ids: " + Arrays.toString(deckMap.keySet().toArray());
+        String playerInfo = "Player Cards: " + Arrays.toString(playersMap.values().toArray()) + "\nPlayer Ids: " + Arrays.toString(playersMap.keySet().toArray());
+        return deckInfo + "\n" + playerInfo;
+    }
+
     public void startGame(){
         Thread[] threads = new Thread[this.nPlayersDecks/2];
         for (int i = 0; i < threads.length; i++) {
@@ -36,7 +44,6 @@ public class CardGame {
             });
             threads[i].start();
         }
-
     }
 
     public static void main(String[] args) {
@@ -46,6 +53,7 @@ public class CardGame {
 
         try {
             CardGame mainGame = new CardGame(nPlayers, cardPack);
+            System.out.println(mainGame);
             System.out.println("Valid Pack");
         } catch (IncorrectCardsInPackException e){
             System.out.println(e);

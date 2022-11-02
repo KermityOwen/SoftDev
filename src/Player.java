@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Player {
 
     Card[] cards;
@@ -35,11 +37,27 @@ public class Player {
     }
 
     public void pickUp (Card c){
-        // TBD
+        Card[] auxCards = new Card[cards.length+1];
+        System.arraycopy(cards, 0, auxCards, 1, cards.length);
+        cards = auxCards;
+        this.cards[0] = c;
     }
 
     public Card discard (int index){
-        // TBD
-        return new Card(0); // Placeholder to be replaced
+        Card c = cards[index];
+        Card[] auxCards = new Card[cards.length-1];
+        System.arraycopy(cards, 0, auxCards, 0, index);
+        System.arraycopy(cards, index+1, auxCards, index, auxCards.length-index);
+        cards = auxCards;
+        return c;
+    }
+
+    @Override
+    public String toString() {
+        String aux = "";
+        for (Card c: cards){
+            aux = aux + "|" + c;
+        };
+        return aux + "|";
     }
 }
