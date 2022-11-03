@@ -5,8 +5,8 @@ import java.util.Scanner;
 public class CardGame {
 
     // Maps for players and decks
-    HashMap<Integer, Player> playersMap = new HashMap<Integer, Player>();
-    HashMap<Integer, CardDeck> deckMap = new HashMap<Integer, CardDeck>();
+    public HashMap<Integer, Player> playersMap = new HashMap<Integer, Player>();
+    public HashMap<Integer, CardDeck> deckMap = new HashMap<Integer, CardDeck>();
 
     // Number of players + numbers of decks (used for circular calculations with modulo later)
     int nPlayersDecks;

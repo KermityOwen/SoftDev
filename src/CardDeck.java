@@ -44,6 +44,10 @@ public class CardDeck {
         return c;
     }
 
+    public Card atomicPushAndPop(Card c){
+        return c; //TBD
+    }
+
     @Override
     public String toString() {
         String aux = "";

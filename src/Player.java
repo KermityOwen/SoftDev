@@ -52,6 +52,10 @@ public class Player {
         return c;
     }
 
+    public Card atomicPickUpAndDiscard(Card c, int index){
+        return c; //TBD
+    }
+
     @Override
     public String toString() {
         String aux = "";
