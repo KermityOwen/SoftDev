@@ -44,15 +44,17 @@ public class CardGame {
         return cardDiscarded;
     }
 
-    public void startGame(){
+    public synchronized void startGame(){
         Thread[] threads = new Thread[this.nPlayersDecks];
         for (int i = 0; i < threads.length; i++) {
+
             int finalI = i;
             threads[i] = new Thread(new Runnable() {
                 public void run() {
 
                     while (gameWonBy.length() == 0) {
                         Card prevDisc = new Card(0);
+
                         if (!playersMap.get(finalI).validate()){
                             prevDisc = playerMove(finalI, prevDisc);
                             System.out.println("Player: " + finalI + ", Player Hand: " + playersMap.get(finalI));
@@ -62,8 +64,8 @@ public class CardGame {
                             System.out.println(gameWonBy+" won");
                             break;
                         }
-                    }
 
+                    }
                 }
             });
             threads[i].start();
@@ -78,8 +80,9 @@ public class CardGame {
         try {
             CardGame mainGame = new CardGame(nPlayers, cardPack);
             mainGame.startGame();
-            //System.out.println(mainGame);
-            //System.out.println("Valid Pack");
+
+            // System.out.println(mainGame);
+            // System.out.println("Valid Pack");
         } catch (IncorrectCardsInPackException e){
             System.out.println(e);
         }
