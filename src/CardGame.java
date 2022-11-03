@@ -18,12 +18,12 @@ public class CardGame {
         }
 
         nPlayersDecks = nOfPlayers *2;
-        int[][] cardSplits = Utilities.splitIntArray(cvs, nOfPlayers*2); // INCOMPLETE
+        int[][] playerSplit = Utilities.roundRobinSplit(Arrays.copyOfRange(cvs, 0, (cvs.length/2)), nOfPlayers);
+        int[][] deckSplit = Utilities.roundRobinSplit(Arrays.copyOfRange(cvs, cvs.length/2, cvs.length), nOfPlayers);
 
-        for (int i = 0; i < (nOfPlayers*2);){
-            playersMap.put(i, new Player(cardSplits[i], i));
-            deckMap.put(i+1, new CardDeck(cardSplits[i+1], i+1));
-            i = i+2;
+        for (int i = 0; i < nOfPlayers; i++){
+            playersMap.put(i, new Player(playerSplit[i], i));
+            deckMap.put(i, new CardDeck(deckSplit[i], i));
         }
     }
 

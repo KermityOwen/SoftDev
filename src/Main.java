@@ -7,7 +7,7 @@ public class Main {
         CardDeck auxDeck = new CardDeck(new int[]{1,2,3,4}, 2);
         Player player = new Player(new int[]{1,1,5,4}, 0);
 
-        System.out.println(Arrays.deepToString(Utilities.splitIntArray(new int[]{1,2,3,4,5,6,7,8,1,2,3,4}, 3)));
+        System.out.println(Arrays.deepToString(Utilities.roundRobinSplit(new int[]{1,2,3,4,5,6,7,8,1,2,3,4}, 3)));
 /*
         System.out.println(player);
         player.pickUp(new Card(2));

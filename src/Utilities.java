@@ -24,7 +24,7 @@ public class Utilities {
 
     // Since "ogArr" parameter taken is guarded to be divisible by n (where n is number of players)...
     // No need to account for cases where number of elements cannot be split evenly
-    synchronized static int[][] splitIntArray(int[] ogArr, int n){
+    synchronized static int[][] roundRobinSplit(int[] ogArr, int n){
         int [][] splitArr = new int [n][4];
         int playerPointer = 0;
         int timesRan = 0;
@@ -34,15 +34,6 @@ public class Utilities {
             timesRan++;
         }
         return splitArr;
-
-//        int [][] splitedArray = new int[n][];
-//        int length = ogArr.length / n;
-//        int x = 0;
-//        for(int i = 0; i < splitedArray.length; i++){
-//            splitedArray[i] = Arrays.copyOfRange(ogArr, x, x + length);
-//            x = x + length;
-//        }
-//        return splitedArray;
     }
 
     synchronized static int[] parseDeckFile(String filePath) {
