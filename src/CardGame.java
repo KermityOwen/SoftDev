@@ -8,8 +8,9 @@ public class CardGame {
     public HashMap<Integer, Player> playersMap = new HashMap<Integer, Player>();
     public HashMap<Integer, CardDeck> deckMap = new HashMap<Integer, CardDeck>();
 
-    // Number of players + numbers of decks (used for circular calculations with modulo later)
     int nPlayersDecks;
+
+    String gameWonBy = "";
 
     public CardGame(int nOfPlayers, int[] cvs) throws IncorrectCardsInPackException {
         // Guards
@@ -17,7 +18,7 @@ public class CardGame {
             throw new IncorrectCardsInPackException("Pack doesn't have 8*(N of Players) cards");
         }
 
-        nPlayersDecks = nOfPlayers *2;
+        nPlayersDecks = nOfPlayers;
         int[][] playerSplit = Utilities.roundRobinSplit(Arrays.copyOfRange(cvs, 0, (cvs.length/2)), nOfPlayers);
         int[][] deckSplit = Utilities.roundRobinSplit(Arrays.copyOfRange(cvs, cvs.length/2, cvs.length), nOfPlayers);
 
@@ -34,12 +35,35 @@ public class CardGame {
         return deckInfo + "\n" + playerInfo;
     }
 
+
+    // returns card previously discarded
+    public Card playerMove(int i, Card prevDisc){
+        Card cardDiscarded = playersMap.get(i).atomicPickUpAndDiscard(deckMap.get(i).pop(), prevDisc); // pop card from deck then give to player
+        deckMap.get((i+1)%nPlayersDecks).push(cardDiscarded);
+        //deckMap.get((i+1)%nPlayersDecks).push(playersMap.get(i).atomicPickUpAndDiscard(deckMap.get(i).pop()));
+        return cardDiscarded;
+    }
+
     public void startGame(){
-        Thread[] threads = new Thread[this.nPlayersDecks/2];
+        Thread[] threads = new Thread[this.nPlayersDecks];
         for (int i = 0; i < threads.length; i++) {
+            int finalI = i;
             threads[i] = new Thread(new Runnable() {
                 public void run() {
-                    // TBD
+
+                    while (gameWonBy.length() == 0) {
+                        Card prevDisc = new Card(0);
+                        if (!playersMap.get(finalI).validate()){
+                            prevDisc = playerMove(finalI, prevDisc);
+                            System.out.println("Player: " + finalI + ", Player Hand: " + playersMap.get(finalI));
+                            System.out.println("Deck: " + finalI + ", Deck Hand: " + deckMap.get(finalI));
+                        } else {
+                            gameWonBy = Integer.toString(finalI);
+                            System.out.println(gameWonBy+" won");
+                            break;
+                        }
+                    }
+
                 }
             });
             threads[i].start();
@@ -53,8 +77,9 @@ public class CardGame {
 
         try {
             CardGame mainGame = new CardGame(nPlayers, cardPack);
-            System.out.println(mainGame);
-            System.out.println("Valid Pack");
+            mainGame.startGame();
+            //System.out.println(mainGame);
+            //System.out.println("Valid Pack");
         } catch (IncorrectCardsInPackException e){
             System.out.println(e);
         }

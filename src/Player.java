@@ -52,8 +52,16 @@ public class Player {
         return c;
     }
 
-    public Card atomicPickUpAndDiscard(Card c, int index){
-        return c; //TBD
+    public Card atomicPickUpAndDiscard(Card c, Card prevC){
+        pickUp(c);
+        Card retCard = new Card(0);
+        for (int i = 0; i < cards.length; i++){
+            if ((cards[i].getCardValue() != (playerID+1))){
+                retCard = discard(i);
+                break;
+            }
+        }
+        return retCard; //TBD
     }
 
     @Override
