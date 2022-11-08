@@ -1,9 +1,8 @@
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-import java.io.File;
 
 public class Utilities {
     synchronized static int inputInt(String prompt){
@@ -55,5 +54,26 @@ public class Utilities {
             System.out.println(e);
             return null;
         }
+    }
+
+    static void logFile(String filePath, String logs){
+        File logfile = new File("src/logs/"+filePath);
+        try {
+            logfile.getParentFile().mkdirs();
+            FileWriter writer = new FileWriter(logfile);
+            writer.write(logs);
+            writer.close();
+
+        } catch (Exception e){
+            System.out.println(e);
+        }
+
+
+
+//        try (PrintStream out = new PrintStream(new FileOutputStream("src/logs/"+filePath))) {
+//            out.print(logs);
+//        } catch (FileNotFoundException e) {
+//            System.out.println(e);
+//        }
     }
 }

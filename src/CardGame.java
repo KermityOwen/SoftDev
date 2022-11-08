@@ -1,12 +1,18 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.concurrent.CountDownLatch;
 
 public class CardGame {
 
     // Maps for players and decks
     public HashMap<Integer, Player> playersMap = new HashMap<Integer, Player>();
     public HashMap<Integer, CardDeck> deckMap = new HashMap<Integer, CardDeck>();
+
+    public ArrayList<String> playersLogs = new ArrayList<String>();
+
+    public CountDownLatch threads = new CountDownLatch(this.nPlayersDecks);
 
     int nPlayersDecks;
 
@@ -35,26 +41,30 @@ public class CardGame {
         return deckInfo + "\n" + playerInfo;
     }
 
+    public void logLine(int playerId, String logLine){
+        String newLog = playersLogs.get(playerId) + "\n" + logLine;
+        playersLogs.set(playerId, newLog);
+    }
+
 
     // returns card previously discarded
     public Card playerMove(int i, Card prevDisc){
+        logLine(i, "player " + i + " draws a " + deckMap.get(i) + " from deck " + i);
         Card cardDiscarded = playersMap.get(i).atomicPickUpAndDiscard(deckMap.get(i).pop(), prevDisc); // pop card from deck then give to player
+
+        logLine(i, "player " + i + " discards a " + cardDiscarded + " to deck " + (i+1)%nPlayersDecks);
         deckMap.get((i+1)%nPlayersDecks).push(cardDiscarded);
-        //deckMap.get((i+1)%nPlayersDecks).push(playersMap.get(i).atomicPickUpAndDiscard(deckMap.get(i).pop()));
+
         return cardDiscarded;
     }
 
     public synchronized void startGame(){
-        Thread[] threads = new Thread[this.nPlayersDecks];
-        for (int i = 0; i < threads.length; i++) {
-
+        for (int i = 0; i < this.nPlayersDecks; i++) {
             int finalI = i;
-            threads[i] = new Thread(new Runnable() {
+            new Thread(new Runnable() {
                 public void run() {
-
                     while (gameWonBy.length() == 0) {
                         Card prevDisc = new Card(0);
-
                         if (!playersMap.get(finalI).validate()){
                             prevDisc = playerMove(finalI, prevDisc);
                             System.out.println("Player: " + finalI + ", Player Hand: " + playersMap.get(finalI));
@@ -64,11 +74,11 @@ public class CardGame {
                             System.out.println(gameWonBy+" won");
                             break;
                         }
-
                     }
+                    Utilities.logFile("player"+finalI+"_output.txt", playersLogs.get(finalI));
                 }
-            });
-            threads[i].start();
+            }).start();
+            //threads.start();
         }
     }
 
@@ -79,7 +89,15 @@ public class CardGame {
 
         try {
             CardGame mainGame = new CardGame(nPlayers, cardPack);
+            for (int i = 0; i < nPlayers; i++){
+                mainGame.playersLogs.add("");
+            }
             mainGame.startGame();
+
+            // doesnt work yet
+            mainGame.threads.countDown();
+            System.out.println("working");
+
 
             // System.out.println(mainGame);
             // System.out.println("Valid Pack");
