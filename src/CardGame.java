@@ -98,7 +98,6 @@ public class CardGame {
             mainGame.threads.countDown();
             System.out.println("working");
 
-
             // System.out.println(mainGame);
             // System.out.println("Valid Pack");
         } catch (IncorrectCardsInPackException e){
