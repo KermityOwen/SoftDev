@@ -29,13 +29,13 @@ public class Player {
         // If any cards are different from the first, return false. If loop completes run without running into problems, return true
         for (int i = 0; i < cards.length; i++){
             if (firstCard.getCardValue() != cards[i].getCardValue()) {
-                // System.out.println("broken" + firstCard.getCardValue() + "//" + cards.getCard(i).getCardValue());
                 return false;
             }
         }
         return true;
     }
 
+    // Picks up a card and puts into own hand
     public void pickUp (Card c){
         Card[] auxCards = new Card[cards.length+1];
         System.arraycopy(cards, 0, auxCards, 1, cards.length);
@@ -43,6 +43,7 @@ public class Player {
         this.cards[0] = c;
     }
 
+    // Discard this.cards[index] and returns it (return is for card pushing into deck in front of the player)
     public Card discard (int index){
         Card c = cards[index];
         Card[] auxCards = new Card[cards.length-1];
@@ -52,16 +53,18 @@ public class Player {
         return c;
     }
 
+    // Turns pickup and discard into one action (Handles the player logic too)
     public Card atomicPickUpAndDiscard(Card c, Card prevC){
         pickUp(c);
         Card retCard = new Card(0);
         for (int i = 0; i < cards.length; i++){
+            // If card's value isn't the playerId then discard until all card's values are playerId
             if ((cards[i].getCardValue() != (playerID+1))){
                 retCard = discard(i);
                 break;
             }
         }
-        return retCard; //TBD
+        return retCard;
     }
 
     @Override

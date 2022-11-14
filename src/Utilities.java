@@ -22,13 +22,15 @@ public class Utilities {
     }
 
     // Since "ogArr" parameter taken is guarded to be divisible by n (where n is number of players)...
-    // No need to account for cases where number of elements cannot be split evenly
+    // No need to account for cases where number of elements cannot be split evenly (semi hard-coded)
     synchronized static int[][] roundRobinSplit(int[] ogArr, int n){
         int [][] splitArr = new int [n][4];
         int playerPointer = 0;
         int timesRan = 0;
         for (int arrPointer = 0; arrPointer < ogArr.length; arrPointer++){
+            // Every time the times ran is n the splitArr's 2nd pointer increases by 1
             splitArr[playerPointer][timesRan/n] = ogArr[arrPointer];
+            // As the playerPointer increases past the number of players it will reset to 0
             playerPointer = (playerPointer+1)%n;
             timesRan++;
         }
@@ -45,11 +47,13 @@ public class Utilities {
             }
             scanner.close();
 
+            // Converting list to array (Sorry, bad planning)
             int[] arr = new int[al.size()];
             for (int i = 0; i < arr.length; i++) {
                 arr[i] = al.get(i);
             }
             return arr;
+
         } catch (FileNotFoundException e) {
             System.out.println(e);
             return null;
@@ -67,13 +71,5 @@ public class Utilities {
         } catch (Exception e){
             System.out.println(e);
         }
-
-
-
-//        try (PrintStream out = new PrintStream(new FileOutputStream("src/logs/"+filePath))) {
-//            out.print(logs);
-//        } catch (FileNotFoundException e) {
-//            System.out.println(e);
-//        }
     }
 }

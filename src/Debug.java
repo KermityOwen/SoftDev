@@ -1,8 +1,7 @@
-import jdk.jshell.execution.Util;
-
 import java.util.Arrays;
 
-public class Main {
+// Used for debug while coding and for easy copy-pasting for testing later
+public class Debug {
     public static void main(String[] args) {
         CardDeck auxDeck = new CardDeck(new int[]{1,2,3,4}, 2);
         Player player = new Player(new int[]{1,1,5,4}, 0);
