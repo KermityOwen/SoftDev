@@ -9,8 +9,6 @@ public class Card {
     public int getCardValue(){
         return cardValue;
     }
-
-    //test
     
     @Override
     public String toString() {
