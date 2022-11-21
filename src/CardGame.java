@@ -27,7 +27,6 @@ public class CardGame {
         if (cvs.length != 8*nOfPlayers){
             throw new IncorrectCardsInPackException("Pack doesn't have 8*(N of Players) cards");
         }
-
         // Constructors
         nPlayersDecks = nOfPlayers;
         int[][] playerSplit = Utilities.roundRobinSplit(Arrays.copyOfRange(cvs, 0, (cvs.length/2)), nOfPlayers);
@@ -37,6 +36,10 @@ public class CardGame {
         for (int i = 0; i < nOfPlayers; i++){
             playersMap.put(i, new Player(playerSplit[i], i));
             deckMap.put(i, new CardDeck(deckSplit[i], i));
+        }
+
+        for (int i = 0; i < nOfPlayers; i++){
+            playersLogs.add("");
         }
     }
 
@@ -68,12 +71,17 @@ public class CardGame {
     }
 
     // Start game simulation
-    public synchronized void startGame(){
+    public synchronized void readyGame(){
         for (int i = 0; i < this.nPlayersDecks; i++) {
             // Final i so it's accessible in the thread below
             int finalI = i;
             new Thread(new Runnable() {
                 public void run() {
+                    try {
+                        threads.await();
+                    } catch (InterruptedException e) {
+                        System.out.println(e);;
+                    }
                     while (gameWonBy.length() == 0) {
                         Card prevDisc = new Card(0);
                         if (!playersMap.get(finalI).validate()){
@@ -86,6 +94,7 @@ public class CardGame {
                             break;
                         }
                     }
+                    // to add winner logging
                     Utilities.logFile("player"+finalI+"_output.txt", playersLogs.get(finalI));
                 }
             }).start(); // should be rewritten so that the threads start after they have been all been made
@@ -98,12 +107,7 @@ public class CardGame {
 
         try {
             CardGame mainGame = new CardGame(nPlayers, cardPack);
-            for (int i = 0; i < nPlayers; i++){
-                mainGame.playersLogs.add("");
-            }
-            mainGame.startGame();
-
-            // Doesn't work yet
+            mainGame.readyGame();
             mainGame.threads.countDown();
             System.out.println("working");
 

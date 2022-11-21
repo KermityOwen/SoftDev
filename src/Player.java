@@ -38,6 +38,7 @@ public class Player {
     // Picks up a card and puts into own hand
     public void pickUp (Card c){
         Card[] auxCards = new Card[cards.length+1];
+        // Shifts the array one element to the right
         System.arraycopy(cards, 0, auxCards, 1, cards.length);
         cards = auxCards;
         this.cards[0] = c;
@@ -47,6 +48,7 @@ public class Player {
     public Card discard (int index){
         Card c = cards[index];
         Card[] auxCards = new Card[cards.length-1];
+        // Copies the sub-array before and after removed card and concat it together
         System.arraycopy(cards, 0, auxCards, 0, index);
         System.arraycopy(cards, index+1, auxCards, index, auxCards.length-index);
         cards = auxCards;

@@ -4,7 +4,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CardTest {
+
     Card card;
+
     @BeforeEach
     void setUp() {
         card = new Card(10);

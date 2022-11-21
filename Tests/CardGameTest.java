@@ -35,7 +35,8 @@ class CardGameTest {
 
     @Test
     void playerMove() {
-
+        Card prevDisc = new Card(0);
+        cardGame.playerMove(0, prevDisc);
     }
 
     @Test
