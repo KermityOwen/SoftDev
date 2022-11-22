@@ -1,15 +1,19 @@
 Player 1's initial hand: |2|2|12|14|
 player 1 draws a |12|2|1|4| from deck 1
 player 1 discards a 4 to deck 2
-player 1 draws a |13|12|3|12|2|1| from deck 1
+player 1 draws a |3|12|2|1| from deck 1
 player 1 discards a 1 to deck 2
-player 1 draws a |12|13|12|3|12|2| from deck 1
+player 1 draws a |13|12|3|12|2| from deck 1
 player 1 discards a 12 to deck 2
-player 1 draws a |2|12|13|12|3|12| from deck 1
+player 1 draws a |12|13|12|3|12| from deck 1
 player 1 discards a 12 to deck 2
-player 1 draws a |15|2|2|12|13|12|3| from deck 1
+player 1 draws a |12|13|12|3| from deck 1
 player 1 discards a 3 to deck 2
-player 1 draws a |14|15|2|2|12|13|12| from deck 1
+player 1 draws a |2|12|13|12| from deck 1
 player 1 discards a 12 to deck 2
-player 1 draws a |5|14|15|2|2|12|13| from deck 1
+player 1 draws a |15|2|2|12|13| from deck 1
 player 1 discards a 13 to deck 2
+player 1 draws a |14|15|2|2|12| from deck 1
+player 1 discards a 12 to deck 2
+player 1 draws a |14|5|14|15|2|2| from deck 1
+player 1 discards a 14 to deck 2
