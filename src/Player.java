@@ -56,7 +56,7 @@ public class Player {
     }
 
     // Turns pickup and discard into one action (Handles the player logic too)
-    public Card atomicPickUpAndDiscard(Card c, Card prevC){
+    public Card atomicPickUpAndDiscard(Card c){
         pickUp(c);
         Card retCard = new Card(0);
         for (int i = 0; i < cards.length; i++){

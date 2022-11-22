@@ -12,8 +12,8 @@ Report and development log can be accessed [**[here]**](https://docs.google.com/
 ---
 
 ### File-paths Clarifications:
-- The player output logs will always be written to "src/logs".
-- When the program asks for a pack, make sure your pack.txt is stored in the "src/packs".
+- The player output logs will always be written to "logs".
+- When the program asks for a pack, make sure your pack.txt is stored in the directory you are running from.
 - To change either of these, modify the Utilities class. In doing so, also make sure to change the JUnit tests.
 
 

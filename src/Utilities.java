@@ -39,7 +39,7 @@ public class Utilities {
 
     synchronized static int[] parseDeckFile(String filePath) {
         try {
-            Scanner scanner = new Scanner(new File("src/Packs/"+filePath));
+            Scanner scanner = new Scanner(new File("packs/"+filePath));
             List<Integer> al = new ArrayList<Integer>();
 
             while (scanner.hasNextLine()) {
@@ -61,7 +61,7 @@ public class Utilities {
     }
 
     static void logFile(String filePath, String logs){
-        File logfile = new File("src/logs/"+filePath);
+        File logfile = new File("logs/"+filePath);
         try {
             logfile.getParentFile().mkdirs();
             FileWriter writer = new FileWriter(logfile);

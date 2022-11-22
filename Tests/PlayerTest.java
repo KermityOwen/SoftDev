@@ -50,7 +50,7 @@ class PlayerTest {
 
     @Test
     void atomicPickUpAndDiscard() {
-        Card c = player.atomicPickUpAndDiscard(card1, card2);
+        Card c = player.atomicPickUpAndDiscard(card1);
         assertEquals(player.getCards()[0].toString(), c.toString());
     }
 

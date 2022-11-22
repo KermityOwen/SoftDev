@@ -39,7 +39,7 @@ public class CardGame {
         }
 
         for (int i = 0; i < nOfPlayers; i++){
-            playersLogs.add("");
+            playersLogs.add("Player " + i +"'s initial hand: " + playersMap.get(i));
         }
     }
 
@@ -60,20 +60,20 @@ public class CardGame {
     // Picks up a card then discards the appropriate card (logic handled in Player class)
     // Handles the deck in front and behind player to ensure no dupes or missing cards (logic handled mostly in Deck class)
     // Logs all the moves appropriately
-    public Card playerMove(int i, Card prevDisc){
-        logLine(i, "player " + i + " draws a " + deckMap.get(i) + " from deck " + i);
-        Card cardDiscarded = playersMap.get(i).atomicPickUpAndDiscard(deckMap.get(i).pop(), prevDisc); // pop card from deck then give to player
+    public void playerMove(int i){
+        if (deckMap.get(i).getLength() != 0) {
+            logLine(i, "player " + i + " draws a " + deckMap.get(i) + " from deck " + i);
+            Card cardDiscarded = playersMap.get(i).atomicPickUpAndDiscard(deckMap.get(i).pop()); // pop card from deck then give to player
 
-        logLine(i, "player " + i + " discards a " + cardDiscarded + " to deck " + (i+1)%nPlayersDecks);
-        deckMap.get((i+1)%nPlayersDecks).push(cardDiscarded);
-
-        return cardDiscarded;
+            logLine(i, "player " + i + " discards a " + cardDiscarded + " to deck " + (i + 1) % nPlayersDecks);
+            deckMap.get((i + 1) % nPlayersDecks).push(cardDiscarded);
+        }
     }
 
     // Start game simulation
     public synchronized void readyGame(){
         for (int i = 0; i < this.nPlayersDecks; i++) {
-            // Final i so it's accessible in the thread below
+            // Final i so it's accessible in the thread below (FinalI is the playerID)
             int finalI = i;
             new Thread(new Runnable() {
                 public void run() {
@@ -83,21 +83,30 @@ public class CardGame {
                         System.out.println(e);;
                     }
                     while (gameWonBy.length() == 0) {
-                        Card prevDisc = new Card(0);
                         if (!playersMap.get(finalI).validate()){
-                            prevDisc = playerMove(finalI, prevDisc);
+                            playerMove(finalI);
                             System.out.println("Player: " + finalI + ", Player Hand: " + playersMap.get(finalI));
                             System.out.println("Deck: " + finalI + ", Deck Hand: " + deckMap.get(finalI));
                         } else {
                             gameWonBy = Integer.toString(finalI);
-                            System.out.println(gameWonBy+" won");
+                            System.out.println("Player " + gameWonBy+", won");
                             break;
                         }
                     }
-                    // to add winner logging
+
+                    /*
+                    // All endgame logging (Logic is followed to a tee from the spec
+                    if (Integer.parseInt(gameWonBy) != finalI){
+                        logLine(finalI, "Player " + gameWonBy + " has informed player " + finalI + " that " + gameWonBy + " has won.");
+                    } else {
+                        logLine(finalI, "Player " + gameWonBy + "wins.");
+                    }
+                    logLine(finalI, "Player " + finalI + "exits.");
+                    logLine(finalI, "Player " + finalI + "'s final hand: " + playersMap.get(finalI));
+*/
                     Utilities.logFile("player"+finalI+"_output.txt", playersLogs.get(finalI));
                 }
-            }).start(); // should be rewritten so that the threads start after they have been all been made
+            }).start();
         }
     }
 
@@ -109,7 +118,7 @@ public class CardGame {
             CardGame mainGame = new CardGame(nPlayers, cardPack);
             mainGame.readyGame();
             mainGame.threads.countDown();
-            System.out.println("working");
+            //System.out.println("working");
 
         } catch (IncorrectCardsInPackException e){
             System.out.println(e);
