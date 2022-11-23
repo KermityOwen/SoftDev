@@ -3,20 +3,16 @@ player 1 draws a |12|2|1|4| from deck 1
 player 1 discards a 4 to deck 2
 player 1 draws a |3|12|2|1| from deck 1
 player 1 discards a 1 to deck 2
-player 1 draws a |12|3|12|2| from deck 1
+player 1 draws a |3|12|2| from deck 1
 player 1 discards a 12 to deck 2
 player 1 draws a |12|3|12| from deck 1
 player 1 discards a 12 to deck 2
-player 1 draws a |13|12|3| from deck 1
+player 1 draws a |12|3| from deck 1
 player 1 discards a 3 to deck 2
-player 1 draws a |2|12|13|12| from deck 1
+player 1 draws a |13|12| from deck 1
 player 1 discards a 12 to deck 2
-player 1 draws a |2|2|12|13| from deck 1
+player 1 draws a |15|2|2|12|13| from deck 1
 player 1 discards a 13 to deck 2
-player 1 draws a |2|2|12| from deck 1
-player 1 discards a 12 to deck 2
-player 1 draws a |15|2|2| from deck 1
-player 1 discards a 14 to deck 2
-Player 1wins.
-Player 1exits.
-Player 1's final hand: |2|2|2|2|
+Player 0 has informed player 1 that 0 has won.
+Player 1 exits.
+Player 1's final hand: |2|2|2|14|

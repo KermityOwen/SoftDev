@@ -85,25 +85,27 @@ public class CardGame {
                     while (gameWonBy.length() == 0) {
                         if (!playersMap.get(finalI).validate()){
                             playerMove(finalI);
-                            System.out.println("Player: " + finalI + ", Player Hand: " + playersMap.get(finalI));
-                            System.out.println("Deck: " + finalI + ", Deck Hand: " + deckMap.get(finalI));
+//                            System.out.println("Player: " + finalI + ", Player Hand: " + playersMap.get(finalI));
+//                            System.out.println("Deck: " + finalI + ", Deck Hand: " + deckMap.get(finalI));
                         } else {
                             gameWonBy = Integer.toString(finalI);
-                            System.out.println("Player " + gameWonBy+", won");
+                            System.out.println("\nPlayer " + gameWonBy+" wins");
                             break;
                         }
                     }
-                    
+
                     // All endgame logging (Logic is followed to a tee from the spec
                     if (Integer.parseInt(gameWonBy) != finalI){
                         logLine(finalI, "Player " + gameWonBy + " has informed player " + finalI + " that " + gameWonBy + " has won.");
                     } else {
                         logLine(finalI, "Player " + gameWonBy + "wins.");
                     }
-                    logLine(finalI, "Player " + finalI + "exits.");
+                    logLine(finalI, "Player " + finalI + " exits.");
                     logLine(finalI, "Player " + finalI + "'s final hand: " + playersMap.get(finalI));
 
                     Utilities.logFile("player"+finalI+"_output.txt", playersLogs.get(finalI));
+
+                    Utilities.logFile("deck"+finalI+"_output.txt", "Deck " + finalI + " content: " + deckMap.get(finalI).toString());
                 }
             }).start();
         }
