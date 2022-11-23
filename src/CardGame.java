@@ -93,8 +93,7 @@ public class CardGame {
                             break;
                         }
                     }
-
-                    /*
+                    
                     // All endgame logging (Logic is followed to a tee from the spec
                     if (Integer.parseInt(gameWonBy) != finalI){
                         logLine(finalI, "Player " + gameWonBy + " has informed player " + finalI + " that " + gameWonBy + " has won.");
@@ -103,7 +102,7 @@ public class CardGame {
                     }
                     logLine(finalI, "Player " + finalI + "exits.");
                     logLine(finalI, "Player " + finalI + "'s final hand: " + playersMap.get(finalI));
-*/
+
                     Utilities.logFile("player"+finalI+"_output.txt", playersLogs.get(finalI));
                 }
             }).start();
