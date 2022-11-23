@@ -39,7 +39,7 @@ public class Utilities {
 
     synchronized static int[] parseDeckFile(String filePath) {
         try {
-            Scanner scanner = new Scanner(new File("packs/"+filePath));
+            Scanner scanner = new Scanner(new File("src/packs/"+filePath));
             List<Integer> al = new ArrayList<Integer>();
 
             while (scanner.hasNextLine()) {
