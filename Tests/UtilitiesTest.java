@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -36,6 +37,7 @@ class UtilitiesTest {
 
     @Test
     void parseDeckFile() {
+        System.out.println(Paths.get(".").toAbsolutePath().normalize().toString());
         String filePath = "two.txt";
         int[] expected = new int[]{1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4};
         assertEquals(Arrays.toString(expected), Arrays.toString(Utilities.parseDeckFile(filePath)));
@@ -43,7 +45,7 @@ class UtilitiesTest {
 
     @Test
     void logFile(){
-        String filePath = "src/logs/player0_output.txt";
+        String filePath = "logs/player0_output.txt";
         assertTrue(Files.exists(Path.of(filePath)));
 
 
