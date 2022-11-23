@@ -1,7 +1,6 @@
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -13,7 +12,7 @@ class UtilitiesTest {
 
     @Test
     void inputInt() {
-        String input = "Please enter the number of players: ";
+        String input = "0";
         InputStream in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
         assertEquals(0, Utilities.inputInt(input));
@@ -21,10 +20,10 @@ class UtilitiesTest {
 
     @Test
     void inputString() {
-        String input = "Please enter location of the pack to load: ";
+        String input = "test string";
         InputStream in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
-        assertEquals("Please enter location of the pack to load: ", Utilities.inputString(input));
+        assertEquals("test string", Utilities.inputString(input));
     }
 
     @Test
